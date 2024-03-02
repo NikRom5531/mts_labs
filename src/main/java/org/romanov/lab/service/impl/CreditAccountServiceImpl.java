@@ -26,7 +26,6 @@ public class CreditAccountServiceImpl implements CreditAccountService {
         if (interestRate > bank.getInterestRate()) interestRate = bank.getInterestRate();
         creditAccount.setInterestRate(interestRate);
         interestRate = interestRate / 100 / 12;
-//        double monthlyPayment = loanAmount * (interestRate + (interestRate / (Math.pow(1 + interestRate, months) - 1)));
         double monthlyPayment;
         if (interestRate != 0) monthlyPayment = BigDecimal.valueOf(loanAmount).multiply(BigDecimal.valueOf(interestRate).add(BigDecimal.valueOf(interestRate).divide(BigDecimal.ONE.add(BigDecimal.valueOf(interestRate)).pow(months).subtract(BigDecimal.ONE), 2, RoundingMode.HALF_UP))).doubleValue();
         else monthlyPayment = loanAmount / months;
