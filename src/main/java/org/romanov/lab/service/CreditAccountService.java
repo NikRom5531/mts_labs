@@ -28,7 +28,7 @@ public interface CreditAccountService {
     /**
      * Возвращает информацию о текущем кредитном счете.
      *
-     * @return Объект кредитного счета.
+     * @return Объект класса {@link CreditAccount}.
      */
     CreditAccount read();
 

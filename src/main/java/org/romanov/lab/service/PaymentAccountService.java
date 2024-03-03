@@ -23,7 +23,7 @@ public interface PaymentAccountService {
     /**
      * Возвращает информацию о текущем платежном счете.
      *
-     * @return Объект платежного счета.
+     * @return Объект класса {@link PaymentAccount}.
      */
     PaymentAccount read();
 

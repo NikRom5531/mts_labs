@@ -24,9 +24,9 @@ public interface AtmService {
     void create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost);
 
     /**
-     * Получает объект {@link BankAtm}.
+     * Получает объект класса {@link BankAtm}.
      *
-     * @return Объект {@link BankAtm}.
+     * @return Объект класса {@link BankAtm}.
      */
     BankAtm read();
 

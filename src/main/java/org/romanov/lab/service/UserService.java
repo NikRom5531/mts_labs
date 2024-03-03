@@ -28,7 +28,7 @@ public interface UserService {
     /**
      * Возвращает информацию о текущем клиенте банка.
      *
-     * @return Объект клиента банка.
+     * @return Объект класса {@link User}.
      */
     User read();
 

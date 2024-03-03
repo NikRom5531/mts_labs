@@ -12,7 +12,7 @@ public class AtmServiceImpl implements AtmService {
     private BankAtm atm;
 
     /**
-     * Конструктор по умолчанию. Создает экземпляр BankAtm.
+     * Конструктор по умолчанию. Создает экземпляр класса {@link BankAtm}.
      */
     public AtmServiceImpl() {
         this.atm = new BankAtm();
@@ -54,9 +54,9 @@ public class AtmServiceImpl implements AtmService {
     }
 
     /**
-     * Возвращает текущий объект BankAtm.
+     * Возвращает объект BankAtm.
      *
-     * @return Текущий объект BankAtm.
+     * @return Объект класса {@link BankAtm}.
      */
     @Override
     public BankAtm read() {

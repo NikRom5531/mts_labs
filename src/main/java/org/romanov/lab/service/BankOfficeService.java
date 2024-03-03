@@ -31,7 +31,7 @@ public interface BankOfficeService {
     /**
      * Возвращает информацию о текущем банковском офисе.
      *
-     * @return Объект банковского офиса.
+     * @return Объект класса {@link BankOffice}.
      */
     BankOffice read();
 

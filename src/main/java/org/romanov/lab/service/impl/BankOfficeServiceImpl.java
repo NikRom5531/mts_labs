@@ -8,32 +8,33 @@ import org.romanov.lab.service.BankOfficeService;
 import java.util.List;
 
 /**
- * Implementation of the BankOfficeService interface for managing BankOffice entities.
+ * Реализация сервиса управления банковским офисом.
+ * Этот класс предоставляет методы для создания, чтения, обновления и удаления банковского офиса.
+ * Обеспечивает взаимодействие с объектами типа BankOffice.
  */
 public class BankOfficeServiceImpl implements BankOfficeService {
     private BankOffice bankOffice;
 
     /**
-     * Default constructor for creating a new instance of BankOfficeServiceImpl.
-     * Initializes a new BankOffice instance.
+     * Конструктор по умолчанию. Создает новый экземпляр банковского офиса.
      */
     public BankOfficeServiceImpl() {
         this.bankOffice = new BankOffice();
     }
 
     /**
-     * Creates a new BankOffice with the provided attributes.
+     * Создает новый банковский офис с указанными параметрами.
      *
-     * @param id                The unique identifier of the bank office.
-     * @param name              The name of the bank office.
-     * @param bank              The associated bank.
-     * @param address           The address of the bank office.
-     * @param status            The status of the bank office (true if it's operational, false otherwise).
-     * @param canPlaceAtm       Indicates whether the bank office can place ATMs.
-     * @param canProvideCredit  Indicates whether the bank office can provide credit services.
-     * @param cashWithdrawal    Indicates whether the bank office supports cash withdrawal.
-     * @param cashDeposit       Indicates whether the bank office supports cash deposit.
-     * @param rentCost          The cost of renting the bank office.
+     * @param id                Идентификатор банковского офиса.
+     * @param name              Название банковского офиса.
+     * @param bank              Банк, к которому принадлежит офис.
+     * @param address           Адрес офиса.
+     * @param status            Статус работы офиса.
+     * @param canPlaceAtm       Возможность установки банкомата в офисе.
+     * @param canProvideCredit  Возможность предоставления кредитов.
+     * @param cashWithdrawal    Возможность снятия наличных.
+     * @param cashDeposit       Возможность внесения наличных.
+     * @param rentCost          Стоимость аренды офиса.
      */
     @Override
     public void create(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost) {
@@ -52,9 +53,9 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     }
 
     /**
-     * Retrieves the current BankOffice instance.
+     * Возвращает информацию о банковском офисе.
      *
-     * @return The current BankOffice instance.
+     * @return Объект класса {@link BankOffice}.
      */
     @Override
     public BankOffice read() {
@@ -62,19 +63,19 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     }
 
     /**
-     * Updates the BankOffice with the provided attributes.
+     * Обновляет информацию о банковском офисе с указанными параметрами.
      *
-     * @param id                The unique identifier of the bank office.
-     * @param name              The name of the bank office.
-     * @param bank              The associated bank.
-     * @param address           The address of the bank office.
-     * @param status            The status of the bank office (true if it's operational, false otherwise).
-     * @param canPlaceAtm       Indicates whether the bank office can place ATMs.
-     * @param bankAtms          The list of ATMs associated with the bank office.
-     * @param canProvideCredit  Indicates whether the bank office can provide credit services.
-     * @param cashWithdrawal    Indicates whether the bank office supports cash withdrawal.
-     * @param cashDeposit       Indicates whether the bank office supports cash deposit.
-     * @param rentCost          The cost of renting the bank office.
+     * @param id                Идентификатор офиса.
+     * @param name              Название офиса.
+     * @param bank              Банк, к которому принадлежит офис.
+     * @param address           Адрес офиса.
+     * @param status            Статус работы офиса.
+     * @param canPlaceAtm       Возможность установки банкомата в офисе.
+     * @param bankAtms          Список банкоматов в офисе.
+     * @param canProvideCredit  Возможность предоставления кредитов.
+     * @param cashWithdrawal    Возможность снятия наличных.
+     * @param cashDeposit       Возможность внесения наличных.
+     * @param rentCost          Стоимость аренды офиса.
      */
     @Override
     public void update(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, List<BankAtm> bankAtms, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost) {
@@ -96,9 +97,9 @@ public class BankOfficeServiceImpl implements BankOfficeService {
     }
 
     /**
-     * Deletes the BankOffice with the specified identifier.
+     * Удаляет банковский офис с указанным идентификатором.
      *
-     * @param id The unique identifier of the bank office to be deleted.
+     * @param id Идентификатор офиса.
      */
     @Override
     public void delete(int id) {

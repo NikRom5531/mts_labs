@@ -32,7 +32,7 @@ public interface EmployeeService {
     /**
      * Возвращает информацию о текущем сотруднике банка.
      *
-     * @return Объект сотрудника банка.
+     * @return Объект класса {@link Employee}.
      */
     Employee read();
 

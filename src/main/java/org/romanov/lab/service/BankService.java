@@ -19,7 +19,7 @@ public interface BankService {
     /**
      * Возвращает информацию о текущем банке.
      *
-     * @return Объект банка.
+     * @return Объект класса {@link Bank}.
      */
     Bank read();
 
