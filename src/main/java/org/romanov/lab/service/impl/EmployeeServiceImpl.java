@@ -12,32 +12,25 @@ import java.util.Date;
  * Реализация интерфейса EmployeeService для управления информацией о сотрудниках банка.
  */
 public class EmployeeServiceImpl implements EmployeeService {
-    private Employee employee;
-
-    /**
-     * Конструктор класса EmployeeServiceImpl, создает новый объект Employee.
-     */
-    public EmployeeServiceImpl() {
-        this.employee = new Employee();
-    }
-
     /**
      * Создает нового сотрудника с заданными параметрами.
      *
-     * @param id               Идентификатор сотрудника.
-     * @param lastName         Фамилия сотрудника.
-     * @param firstName        Имя сотрудника.
-     * @param patronymic       Отчество сотрудника.
-     * @param birthDate        Дата рождения сотрудника.
-     * @param position         Должность сотрудника.
-     * @param bank             Банк, в котором работает сотрудник.
-     * @param bankOffice       Офис банка, в котором работает сотрудник.
-     * @param worksInOffice    Работает ли сотрудник в офисе (true - да, false - нет).
-     * @param canIssueCredits  Может ли сотрудник выдавать кредиты (true - да, false - нет).
-     * @param salary           Зарплата сотрудника.
+     * @param id                Идентификатор сотрудника.
+     * @param lastName          Фамилия сотрудника.
+     * @param firstName         Имя сотрудника.
+     * @param patronymic        Отчество сотрудника.
+     * @param birthDate         Дата рождения сотрудника.
+     * @param position          Должность сотрудника.
+     * @param bank              Банк, в котором работает сотрудник.
+     * @param bankOffice        Офис банка, в котором работает сотрудник.
+     * @param worksInOffice     Работает ли сотрудник в офисе (true - да, false - нет).
+     * @param canIssueCredits   Может ли сотрудник выдавать кредиты (true - да, false - нет).
+     * @param salary            Зарплата сотрудника.
+     * @return                  Созданный объект класса {@link Employee}.
      */
     @Override
-    public void create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary) {
+    public Employee create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary) {
+        Employee employee = new Employee();
         employee.setId(id);
         employee.setLastName(lastName);
         employee.setFirstName(firstName);
@@ -50,16 +43,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setWorksInOffice(worksInOffice);
         employee.setCanIssueCredits(canIssueCredits);
         employee.setSalary(salary);
+        return employee;
     }
 
     /**
      * Возвращает информацию о текущем сотруднике.
      *
-     * @return Объект класса {@link Employee}, представляющий сотрудника.
+     * @param id    Идентификатор сотрудника.
+     * @return      Объект класса {@link Employee}, представляющий сотрудника.
      */
     @Override
-    public Employee read() {
-        return employee;
+    public Employee read(int id) {
+        return null;
     }
 
     /**

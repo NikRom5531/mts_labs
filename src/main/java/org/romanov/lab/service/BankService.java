@@ -13,15 +13,17 @@ public interface BankService {
      *
      * @param id              Уникальный идентификатор банка.
      * @param name            Название банка.
+     * @return                Созданный объект класса {@link Bank}.
      */
-    void create(int id, String name);
+    Bank create(int id, String name);
 
     /**
      * Возвращает информацию о текущем банке.
      *
-     * @return Объект класса {@link Bank}.
+     * @param id    Уникальный идентификатор банка.
+     * @return      Объект класса {@link Bank}.
      */
-    Bank read();
+    Bank read(int id);
 
     /**
      * Обновляет информацию о существующем банке.

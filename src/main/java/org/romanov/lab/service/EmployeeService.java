@@ -26,15 +26,17 @@ public interface EmployeeService {
      * @param worksInOffice   Работает ли сотрудник в офисе.
      * @param canIssueCredits Возможность выдачи кредитов сотрудником.
      * @param salary          Зарплата сотрудника.
+     * @return                Созданный объект класса {@link Employee}.
      */
-    void create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary);
+    Employee create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary);
 
     /**
      * Возвращает информацию о текущем сотруднике банка.
      *
-     * @return Объект класса {@link Employee}.
+     * @param id    Уникальный идентификатор сотрудника.
+     * @return      Объект класса {@link Employee}.
      */
-    Employee read();
+    Employee read(int id);
 
     /**
      * Обновляет информацию о существующем сотруднике банка.

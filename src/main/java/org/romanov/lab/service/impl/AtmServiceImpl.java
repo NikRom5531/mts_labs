@@ -9,15 +9,6 @@ import org.romanov.lab.service.AtmService;
  * Реализация интерфейса AtmService для работы с объектами BankAtm.
  */
 public class AtmServiceImpl implements AtmService {
-    private BankAtm atm;
-
-    /**
-     * Конструктор по умолчанию. Создает экземпляр класса {@link BankAtm}.
-     */
-    public AtmServiceImpl() {
-        this.atm = new BankAtm();
-    }
-
     /**
      * Создает новый объект BankAtm с заданными параметрами.
      *
@@ -30,9 +21,11 @@ public class AtmServiceImpl implements AtmService {
      * @param cashWithdrawal    Возможность снятия наличных.
      * @param cashDeposit       Возможность внесения наличных.
      * @param maintenanceCost   Стоимость обслуживания банкомата.
+     * @return                  Созданный объект класса {@link BankAtm}.
      */
     @Override
-    public void create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
+    public BankAtm create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
+        BankAtm atm = new BankAtm();
         atm.setId(id);
         atm.setName(name);
         atm.setAddress(bankOffice.getAddress());
@@ -51,16 +44,18 @@ public class AtmServiceImpl implements AtmService {
         atm.setCashDeposit(cashDeposit);
         atm.setTotalMoney(bankOffice.getBank().getTotalMoney());
         atm.setMaintenanceCost(maintenanceCost);
+        return atm;
     }
 
     /**
      * Возвращает объект BankAtm.
      *
-     * @return Объект класса {@link BankAtm}.
+     * @param id    Уникальный идентификатор банкомата.
+     * @return      Объект класса {@link BankAtm}.
      */
     @Override
-    public BankAtm read() {
-        return atm;
+    public BankAtm read(int id) {
+        return null;
     }
 
     /**
@@ -78,7 +73,7 @@ public class AtmServiceImpl implements AtmService {
      */
     @Override
     public void update(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
-
+        BankAtm atm = read(id);
     }
 
     /**

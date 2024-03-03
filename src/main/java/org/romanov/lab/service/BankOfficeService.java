@@ -25,15 +25,17 @@ public interface BankOfficeService {
      * @param cashWithdrawal    Возможность снятия наличных.
      * @param cashDeposit       Возможность внесения наличных.
      * @param rentCost          Стоимость аренды офиса.
+     * @return                  Созданный объект класса {@link BankOffice}.
      */
-    void create(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost);
+    BankOffice create(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost);
 
     /**
      * Возвращает информацию о текущем банковском офисе.
      *
-     * @return Объект класса {@link BankOffice}.
+     * @param id    Уникальный идентификатор офиса.
+     * @return      Объект класса {@link BankOffice}.
      */
-    BankOffice read();
+    BankOffice read(int id);
 
     /**
      * Обновляет информацию о существующем банковском офисе.

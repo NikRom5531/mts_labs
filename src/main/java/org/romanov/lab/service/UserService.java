@@ -15,22 +15,24 @@ public interface UserService {
     /**
      * Создает нового клиента банка с указанными параметрами.
      *
-     * @param id          Уникальный идентификатор клиента банка.
-     * @param lastName    Фамилия клиента.
-     * @param firstName   Имя клиента.
-     * @param patronymic  Отчество клиента.
-     * @param birthDate   Дата рождения клиента.
-     * @param workplace   Место работы клиента.
-     * @param usedBanksIds   Список банков, которыми пользуется клиент.
+     * @param id                Уникальный идентификатор клиента банка.
+     * @param lastName          Фамилия клиента.
+     * @param firstName         Имя клиента.
+     * @param patronymic        Отчество клиента.
+     * @param birthDate         Дата рождения клиента.
+     * @param workplace         Место работы клиента.
+     * @param usedBanksIds      Список банков, которыми пользуется клиент.
+     * @return                  Созданный объект класса {@link User}.
      */
-    void create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds);
+    User create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds);
 
     /**
      * Возвращает информацию о текущем клиенте банка.
      *
-     * @return Объект класса {@link User}.
+     * @param id    Уникальный идентификатор клиента банка.
+     * @return      Объект класса {@link User}.
      */
-    User read();
+    User read(int id);
 
     /**
      * Обновляет информацию о существующем клиенте банка.

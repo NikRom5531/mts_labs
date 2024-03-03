@@ -9,39 +9,34 @@ import org.romanov.lab.service.PaymentAccountService;
  * Реализация интерфейса PaymentAccountService для управления информацией о платежных счетах пользователей банка.
  */
 public class PaymentAccountServiceImpl implements PaymentAccountService {
-    private PaymentAccount paymentAccount;
-
-    /**
-     * Конструктор класса PaymentAccountServiceImpl, создает новый объект PaymentAccount.
-     */
-    public PaymentAccountServiceImpl() {
-        this.paymentAccount = new PaymentAccount();
-    }
-
     /**
      * Создает новый платежный счет с заданными параметрами.
      *
-     * @param id      Идентификатор платежного счета.
-     * @param user    Пользователь, которому принадлежит платежный счет.
-     * @param bank    Банк, в котором открыт платежный счет.
-     * @param balance Баланс платежного счета.
+     * @param id        Идентификатор платежного счета.
+     * @param user      Пользователь, которому принадлежит платежный счет.
+     * @param bank      Банк, в котором открыт платежный счет.
+     * @param balance   Баланс платежного счета.
+     * @return          Созданный объект класса {@link PaymentAccount}.
      */
     @Override
-    public void create(int id, User user, Bank bank, double balance) {
+    public PaymentAccount create(int id, User user, Bank bank, double balance) {
+        PaymentAccount paymentAccount = new PaymentAccount();
         paymentAccount.setId(id);
         paymentAccount.setUser(user);
         paymentAccount.setBankName(bank.getName());
         paymentAccount.setBalance(balance);
+        return paymentAccount;
     }
 
     /**
      * Возвращает информацию о текущем платежном счете.
      *
-     * @return Объект класса {@link PaymentAccount}, представляющий платежный счет.
+     * @param id    Идентификатор платежного счета.
+     * @return      Объект класса {@link PaymentAccount}, представляющий платежный счет.
      */
     @Override
-    public PaymentAccount read() {
-        return paymentAccount;
+    public PaymentAccount read(int id) {
+        return null;
     }
 
     /**

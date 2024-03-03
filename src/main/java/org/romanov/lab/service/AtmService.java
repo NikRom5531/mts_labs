@@ -20,15 +20,17 @@ public interface AtmService {
      * @param cashWithdrawal    Указывает, поддерживает ли банкомат снятие наличных.
      * @param cashDeposit       Указывает, поддерживает ли банкомат внесение наличных.
      * @param maintenanceCost   Стоимость обслуживания банкомата.
+     * @return                  Созданный объект класса {@link BankAtm}.
      */
-    void create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost);
+    BankAtm create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost);
 
     /**
      * Получает объект класса {@link BankAtm}.
      *
-     * @return Объект класса {@link BankAtm}.
+     * @param id    Уникальный идентификатор банкомата.
+     * @return      Объект класса {@link BankAtm}.
      */
-    BankAtm read();
+    BankAtm read(int id);
 
     /**
      * Обновляет существующий объект {@link BankAtm} с предоставленными атрибутами.

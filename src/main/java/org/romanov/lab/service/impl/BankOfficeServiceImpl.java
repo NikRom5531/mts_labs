@@ -13,15 +13,6 @@ import java.util.List;
  * Обеспечивает взаимодействие с объектами типа BankOffice.
  */
 public class BankOfficeServiceImpl implements BankOfficeService {
-    private BankOffice bankOffice;
-
-    /**
-     * Конструктор по умолчанию. Создает новый экземпляр банковского офиса.
-     */
-    public BankOfficeServiceImpl() {
-        this.bankOffice = new BankOffice();
-    }
-
     /**
      * Создает новый банковский офис с указанными параметрами.
      *
@@ -35,9 +26,11 @@ public class BankOfficeServiceImpl implements BankOfficeService {
      * @param cashWithdrawal    Возможность снятия наличных.
      * @param cashDeposit       Возможность внесения наличных.
      * @param rentCost          Стоимость аренды офиса.
+     * @return                  Созданный объект класса {@link BankOffice}.
      */
     @Override
-    public void create(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost) {
+    public BankOffice create(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost) {
+        BankOffice bankOffice = new BankOffice();
         bankOffice.setId(id);
         bankOffice.setName(name);
         bankOffice.setBank(bank);
@@ -50,16 +43,18 @@ public class BankOfficeServiceImpl implements BankOfficeService {
         bankOffice.setCashDeposit(cashDeposit);
         bankOffice.setTotalMoney(bankOffice.getBank().getTotalMoney());
         bankOffice.setRentCost(rentCost);
+        return bankOffice;
     }
 
     /**
      * Возвращает информацию о банковском офисе.
      *
-     * @return Объект класса {@link BankOffice}.
+     * @param id    Идентификатор банковского офиса.
+     * @return      Объект класса {@link BankOffice}.
      */
     @Override
-    public BankOffice read() {
-        return bankOffice;
+    public BankOffice read(int id) {
+        return null;
     }
 
     /**
@@ -79,7 +74,7 @@ public class BankOfficeServiceImpl implements BankOfficeService {
      */
     @Override
     public void update(int id, String name, Bank bank, String address, boolean status, boolean canPlaceAtm, List<BankAtm> bankAtms, boolean canProvideCredit, boolean cashWithdrawal, boolean cashDeposit, double rentCost) {
-        bankOffice.setId(id);
+        BankOffice bankOffice = read(id);
         bankOffice.setName(name);
         bankOffice.setBank(bank);
         bankOffice.setAddress(address);

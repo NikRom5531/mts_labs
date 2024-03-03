@@ -19,23 +19,17 @@ import java.util.Random;
  */
 public class BankServiceImpl implements BankService {
     private static final Random RANDOM = new Random();
-    private Bank bank;
-
-    /**
-     * Конструктор по умолчанию для инициализации {@code BankServiceImpl} и создания нового экземпляра {@code Bank}.
-     */
-    public BankServiceImpl(){
-        this.bank = new Bank();
-    }
 
     /**
      * Создает новый банк с указанными параметрами.
      *
-     * @param id   Уникальный идентификатор банка.
-     * @param name Название банка.
+     * @param id    Уникальный идентификатор банка.
+     * @param name  Название банка.
+     * @return      Созданный объект класса {@link Bank}.
      */
     @Override
-    public void create(int id, String name) {
+    public Bank create(int id, String name) {
+        Bank bank = new Bank();
         bank.setId(id);
         bank.setName(name);
         int rating = RANDOM.nextInt(101);
@@ -43,16 +37,18 @@ public class BankServiceImpl implements BankService {
         bank.setRating(rating);
         bank.setTotalMoney(totalMoney);
         bank.setInterestRate(BigDecimal.valueOf(20).subtract(BigDecimal.valueOf(rating).multiply(BigDecimal.valueOf(0.2))).doubleValue());
+        return bank;
     }
 
     /**
      * Возвращает детали текущего банка.
      *
-     * @return Экземпляр {@link Bank}.
+     * @param id    Уникальный идентификатор банка.
+     * @return      Экземпляр {@link Bank}.
      */
     @Override
-    public Bank read() {
-        return bank;
+    public Bank read(int id) {
+        return null;
     }
 
     /**
@@ -69,7 +65,7 @@ public class BankServiceImpl implements BankService {
      */
     @Override
     public void update(int id, String name, int quantityOffices, int quantityATM, int quantityEmployees, int quantityClients, int rating, double totalMoney) {
-        bank.setId(id);
+        Bank bank = read(id);
         bank.setName(name);
         bank.setQuantityOffices(quantityOffices);
         bank.setQuantityATM(quantityATM);

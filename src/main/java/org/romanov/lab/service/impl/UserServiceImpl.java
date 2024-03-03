@@ -16,14 +16,6 @@ import java.util.Random;
  */
 public class UserServiceImpl implements UserService {
     private static final Random RANDOM = new Random();
-    private User user;
-
-    /**
-     * Конструктор класса UserServiceImpl, создает новый объект User.
-     */
-    public UserServiceImpl() {
-        this.user = new User();
-    }
 
     /**
      * Создает нового клиента с заданными параметрами.
@@ -35,9 +27,11 @@ public class UserServiceImpl implements UserService {
      * @param birthDate     Дата рождения клиента.
      * @param workplace     Место работы клиента.
      * @param usedBanksIds  Список банков, которыми пользуется клиент.
+     * @return              Созданный объект класса {@link User}.
      */
     @Override
-    public void create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds) {
+    public User create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds) {
+        User user = new User();
         user.setId(id);
         user.setLastName(lastName);
         user.setFirstName(firstName);
@@ -49,16 +43,18 @@ public class UserServiceImpl implements UserService {
         for (Bank bank : usedBanksIds) bank.setQuantityClients(bank.getQuantityClients() + 1);
         user.setUsedBanksIds(usedBanksIds);
         user.setCreditRating(getCreditRating(monthlyIncome));
+        return user;
     }
 
     /**
      * Возвращает информацию о текущем клиенте.
      *
-     * @return Объект User, представляющий клиента.
+     * @param id    Идентификатор клиента.
+     * @return      Объект класса {@link User}, представляющий клиента.
      */
     @Override
-    public User read() {
-        return user;
+    public User read(int id) {
+        return null;
     }
 
     /**
