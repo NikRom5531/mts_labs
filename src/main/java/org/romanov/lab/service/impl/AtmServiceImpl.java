@@ -1,30 +1,19 @@
 package org.romanov.lab.service.impl;
 
+import org.romanov.lab.entity.Bank;
 import org.romanov.lab.entity.BankAtm;
 import org.romanov.lab.entity.BankOffice;
 import org.romanov.lab.entity.Employee;
 import org.romanov.lab.service.AtmService;
+import org.romanov.lab.utils.EntityMaps;
 
 /**
  * Реализация интерфейса AtmService для работы с объектами BankAtm.
  */
 public class AtmServiceImpl implements AtmService {
-    /**
-     * Создает новый объект BankAtm с заданными параметрами.
-     *
-     * @param id                Уникальный идентификатор банкомата.
-     * @param name              Название банкомата.
-     * @param status            Статус банкомата (1 - работает, 2 - нет денег, 0 - не работает).
-     * @param bankOffice        Банковский офис, к которому привязан банкомат.
-     * @param location          Местоположение банкомата.
-     * @param servicingEmployee Сотрудник, обслуживающий банкомат.
-     * @param cashWithdrawal    Возможность снятия наличных.
-     * @param cashDeposit       Возможность внесения наличных.
-     * @param maintenanceCost   Стоимость обслуживания банкомата.
-     * @return                  Созданный объект класса {@link BankAtm}.
-     */
+
     @Override
-    public BankAtm create(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
+    public void create(long id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
         BankAtm atm = new BankAtm();
         atm.setId(id);
         atm.setName(name);
@@ -36,53 +25,39 @@ public class AtmServiceImpl implements AtmService {
         }
         atm.setStatus(status);
         atm.setBankOffice(bankOffice); // Для использования ID необходимы коллекции
-        bankOffice.setQuantityAtms(bankOffice.getQuantityAtms() + 1);
-        bankOffice.getBank().setQuantityATM(bankOffice.getBank().getQuantityATM() + 1);
         atm.setLocation(location);
         atm.setServicingEmployee(servicingEmployee); // Для использования ID необходимы коллекции
         atm.setCashWithdrawal(cashWithdrawal);
         atm.setCashDeposit(cashDeposit);
-        atm.setTotalMoney(bankOffice.getBank().getTotalMoney());
         atm.setMaintenanceCost(maintenanceCost);
+
+        bankOffice.getBankAtmMap().put(id, atm);
+    }
+
+    @Override
+    public BankAtm read(long id) {
+        BankAtm atm = null;
+        for (Bank bank : EntityMaps.bankMap.values()) {
+            for (BankOffice bankOffice : bank.getBankOfficeMap().values()) {
+                if (bankOffice.getBankAtmMap().containsKey(id)) {
+                    atm = bankOffice.getBankAtmMap().get(id);
+                    break;
+                }
+            }
+            if (atm != null) break;
+        }
         return atm;
     }
 
-    /**
-     * Возвращает объект BankAtm.
-     *
-     * @param id    Уникальный идентификатор банкомата.
-     * @return      Объект класса {@link BankAtm}.
-     */
     @Override
-    public BankAtm read(int id) {
-        return null;
+    public void update(long id, BankAtm atm) {
+        BankAtm atmMap = read(id);
+        if (atmMap != null && atm != null) atm.getBankOffice().getBankAtmMap().replace(id, atm);
     }
 
-    /**
-     * Обновляет параметры существующего объекта BankAtm.
-     *
-     * @param id                Уникальный идентификатор банкомата.
-     * @param name              Название банкомата.
-     * @param status            Статус банкомата (1 - работает, 2 - нет денег, 0 - не работает).
-     * @param bankOffice        Банковский офис, к которому привязан банкомат.
-     * @param location          Местоположение банкомата.
-     * @param servicingEmployee Сотрудник, обслуживающий банкомат.
-     * @param cashWithdrawal    Возможность снятия наличных.
-     * @param cashDeposit       Возможность внесения наличных.
-     * @param maintenanceCost   Стоимость обслуживания банкомата.
-     */
     @Override
-    public void update(int id, String name, int status, BankOffice bankOffice, String location, Employee servicingEmployee, boolean cashWithdrawal, boolean cashDeposit, double maintenanceCost) {
-        BankAtm atm = read(id);
-    }
-
-    /**
-     * Удаляет объект BankAtm по указанному идентификатору.
-     *
-     * @param id Уникальный идентификатор банкомата.
-     */
-    @Override
-    public void delete(int id) {
-
+    public void delete(long id) {
+        BankAtm bankAtm = read(id);
+        if (bankAtm != null) bankAtm.getBankOffice().getBankAtmMap().remove(bankAtm.getId());
     }
 }

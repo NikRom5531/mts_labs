@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BankAtm {
-    private int id;                         // Id банкомата
+    private long id;                        // Id банкомата
     private String name;                    // Имя банкомата
     private String address;                 // Адрес (сопадает с адресом банковского офиса)
     private int status;                     // Статус (работает/не работает/нет денег)
@@ -19,21 +19,21 @@ public class BankAtm {
     private Employee servicingEmployee;     // Обслуживающий сотрудник
     private boolean cashWithdrawal;         // Работает ли на выдачу денег? (да/нет)
     private boolean cashDeposit;            // Можно ли внести деньги? (да/нет)
-    private double totalMoney;              // Количество денег в банкомате (зависит от всего денег в банке)
     private double maintenanceCost;         // Стоимость обслуживания банкомата
 
     @Override
     public String toString() {
-        return "ATM [" + id + "]" +
-                "\n\tname='" + name + '\'' +
-                "\n\taddress='" + address + '\'' +
-                "\n\tstatus=" + status +
-                "\n\tID bankOffice=" + bankOffice.getId() +
-                "\n\tlocation='" + location + '\'' +
-                "\n\tID servicingEmployee=" + servicingEmployee.getId() +
-                "\n\tcashWithdrawal=" + cashWithdrawal +
-                "\n\tcashDeposit=" + cashDeposit +
-                "\n\ttotalMoney=" + totalMoney +
-                "\n\tmaintenanceCost=" + maintenanceCost;
+        return "ATM" +
+                " id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", bankName=" + bankOffice.getBank().getName() +
+                ", location='" + location + '\'' +
+                ", ID servicingEmployee=" + servicingEmployee.getId() +
+                ", cashWithdrawal=" + cashWithdrawal +
+                ", cashDeposit=" + cashDeposit +
+                ", totalMoney=" + bankOffice.getBank().getTotalMoney() +
+                ", maintenanceCost=" + maintenanceCost;
     }
 }

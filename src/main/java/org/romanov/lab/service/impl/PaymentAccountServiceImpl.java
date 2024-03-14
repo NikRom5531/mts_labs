@@ -4,56 +4,48 @@ import org.romanov.lab.entity.Bank;
 import org.romanov.lab.entity.PaymentAccount;
 import org.romanov.lab.entity.User;
 import org.romanov.lab.service.PaymentAccountService;
+import org.romanov.lab.utils.EntityMaps;
 
 /**
  * Реализация интерфейса PaymentAccountService для управления информацией о платежных счетах пользователей банка.
  */
 public class PaymentAccountServiceImpl implements PaymentAccountService {
-    /**
-     * Создает новый платежный счет с заданными параметрами.
-     *
-     * @param id        Идентификатор платежного счета.
-     * @param user      Пользователь, которому принадлежит платежный счет.
-     * @param bank      Банк, в котором открыт платежный счет.
-     * @param balance   Баланс платежного счета.
-     * @return          Созданный объект класса {@link PaymentAccount}.
-     */
+
     @Override
-    public PaymentAccount create(int id, User user, Bank bank, double balance) {
-        PaymentAccount paymentAccount = new PaymentAccount();
-        paymentAccount.setId(id);
-        paymentAccount.setUser(user);
-        paymentAccount.setBankName(bank.getName());
-        paymentAccount.setBalance(balance);
+    public void create(long id, User user, Bank bank, double balance) {
+        if (read(id) == null) {
+            PaymentAccount paymentAccount = new PaymentAccount();
+            paymentAccount.setId(id);
+            paymentAccount.setUser(user);
+            paymentAccount.setBank(bank);
+            paymentAccount.setBalance(balance);
+            user.getPaymentAccounts().put(id, paymentAccount);
+        }
+    }
+
+    @Override
+    public PaymentAccount read(long id) {
+        PaymentAccount paymentAccount = null;
+        for (Bank bank : EntityMaps.bankMap.values()){
+            for (User user : bank.getUserMap().values()){
+                if (user.getPaymentAccounts().containsKey(id)){
+                    paymentAccount = user.getPaymentAccounts().get(id);
+                    break;
+                }
+            }
+            if (paymentAccount != null) break;
+        }
         return paymentAccount;
     }
 
-    /**
-     * Возвращает информацию о текущем платежном счете.
-     *
-     * @param id    Идентификатор платежного счета.
-     * @return      Объект класса {@link PaymentAccount}, представляющий платежный счет.
-     */
     @Override
-    public PaymentAccount read(int id) {
-        return null;
+    public void update(long id, PaymentAccount paymentAccount) {
+        if (read(id) != null && paymentAccount != null) paymentAccount.getUser().getPaymentAccounts().replace(id, paymentAccount);
     }
 
-    /**
-     * Обновляет информацию о платежном счете.
-     */
     @Override
-    public void update() {
-
-    }
-
-    /**
-     * Удаляет платежный счет по указанному идентификатору.
-     *
-     * @param id Идентификатор платежного счета для удаления.
-     */
-    @Override
-    public void delete(int id) {
-
+    public void delete(long id) {
+        PaymentAccount paymentAccount = read(id);
+        if (paymentAccount != null) paymentAccount.getUser().getPaymentAccounts().remove(id);
     }
 }

@@ -10,16 +10,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentAccount {
-    private int id;                 // Id платёжного счета
+    private long id;                // Id платёжного счета
     private User user;              // Пользователь, за которым закреплен этот платежный счет
-    private String bankName;        // Название банка, в котором открыт этот счет
+    private Bank bank;              // Название банка, в котором открыт этот счет
     private double balance = 0.0;   // Сумма, которая лежит в данный момент на счету (по умолчанию 0)
 
     @Override
     public String toString() {
-        return "Payment Account [" + id + "]" +
-                "\n\tuser=" + user.getId() +
-                "\n\tbankName='" + bankName + '\'' +
-                "\n\tbalance=" + balance;
+        return "Payment Account" +
+                " id=" + id +
+                ", user=" + user.getId() +
+                ", bankName='" + bank.getName() + '\'' +
+                ", balance=" + balance;
     }
 }

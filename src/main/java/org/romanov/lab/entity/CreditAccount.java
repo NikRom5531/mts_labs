@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreditAccount {
-    private int id;                         // Id кредитного счета
+    private long id;                        // Id кредитного счета
     private User user;                      // Пользователь, за которым закреплен этот кредитный счет
-    private String bankName;                // Название банка, где взят кредит
+    private Bank bank;                      // Название банка, где взят кредит
     private LocalDate startDate;            // Дата начала кредита
     private LocalDate endDate;              // Дата окончания кредита
     private int months;                     // Количество месяцев, на которые взят кредит
@@ -26,16 +26,19 @@ public class CreditAccount {
 
     @Override
     public String toString() {
-        return "Credit Account [" + id + "]" +
-                "\n\tID user=" + user.getId() +
-                "\n\tbankName='" + bankName + '\'' +
-                "\n\tstartDate=" + startDate +
-                "\n\tendDate=" + endDate +
-                "\n\tmonths=" + months +
-                "\n\tloanAmount=" + loanAmount +
-                "\n\tmonthlyPayment=" + monthlyPayment +
-                "\n\tinterestRate=" + interestRate +
-                "\n\tID issuingEmployee=" + issuingEmployee.getId() +
-                "\n\tID paymentAccount=" + paymentAccount.getId();
+        String start_date = startDate.getDayOfMonth() + "." + startDate.getMonthValue() + "." + startDate.getYear();
+        String end_date = endDate.getDayOfMonth() + "." + endDate.getMonthValue() + "." + endDate.getYear();
+        return "Credit Account" +
+                " id=" + id +
+                ", ID user=" + user.getId() +
+                ", bankName='" + bank.getName() + '\'' +
+                ", startDate=" + start_date +
+                ", endDate=" + end_date +
+                ", months=" + months +
+                ", loanAmount=" + loanAmount +
+                ", monthlyPayment=" + monthlyPayment +
+                ", interestRate=" + interestRate +
+                ", ID issuingEmployee=" + issuingEmployee.getId() +
+                ", ID paymentAccount=" + paymentAccount.getId();
     }
 }

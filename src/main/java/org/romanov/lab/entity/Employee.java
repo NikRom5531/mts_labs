@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
-    private int id;                     // Id сотрудника
+    private long id;                    // Id сотрудника
     private String lastName;            // Фамилия
     private String firstName;           // Имя
     private String patronymic;          // Отчество
@@ -26,16 +26,18 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee [" + id + "]" +
-                "\n\tlastName='" + lastName + '\'' +
-                "\n\tfirstName='" + firstName + '\'' +
-                "\n\tpatronymic='" + patronymic + '\'' +
-                "\n\tbirthDate=" + birthDate +
-                "\n\tposition='" + position + '\'' +
-                "\n\tID bank=" + bank.getId() +
-                "\n\tID bankOffice=" + bankOffice.getId() +
-                "\n\tworksInOffice=" + worksInOffice +
-                "\n\tcanIssueCredits=" + canIssueCredits +
-                "\n\tsalary=" + salary;
+        String birth_date = birthDate.getDayOfMonth() + "." + birthDate.getMonthValue() + "." + birthDate.getYear();
+        return "Employee" +
+                " id=" + id +
+                ", fullName='" + lastName +
+                " " + firstName +
+                (!patronymic.trim().isEmpty() ? " " + patronymic : "") + '\'' +
+                ", birthDate=" + birth_date +
+                ", position='" + position + '\'' +
+                ", ID bank=" + bank.getId() +
+                ", ID bankOffice=" + bankOffice.getId() +
+                ", worksInOffice=" + worksInOffice +
+                ", canIssueCredits=" + canIssueCredits +
+                ", salary=" + salary;
     }
 }

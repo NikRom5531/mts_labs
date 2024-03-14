@@ -17,9 +17,8 @@ public interface PaymentAccountService {
      * @param user    Пользователь, которому принадлежит платежный счет.
      * @param bank    Банк, в котором открыт платежный счет.
      * @param balance Баланс платежного счета.
-     * @return        Созданный объект класса {@link PaymentAccount}.
      */
-    PaymentAccount create(int id, User user, Bank bank, double balance);
+    void create(long id, User user, Bank bank, double balance);
 
     /**
      * Возвращает информацию о текущем платежном счете.
@@ -27,17 +26,20 @@ public interface PaymentAccountService {
      * @param id    Уникальный идентификатор платежного счета.
      * @return      Объект класса {@link PaymentAccount}.
      */
-    PaymentAccount read(int id);
+    PaymentAccount read(long id);
 
     /**
      * Обновляет информацию о существующем платежном счете.
+     *
+     * @param id                Уникальный идентификатор платежного счета.
+     * @param paymentAccount    Объект класса {@link PaymentAccount}.
      */
-    void update();
+    void update(long id, PaymentAccount paymentAccount);
 
     /**
      * Удаляет платежный счет по его уникальному идентификатору.
      *
      * @param id Уникальный идентификатор платежного счета.
      */
-    void delete(int id);
+    void delete(long id);
 }

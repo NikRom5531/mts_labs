@@ -1,13 +1,11 @@
 package org.romanov.lab.service.impl;
 
 import org.romanov.lab.entity.Bank;
-import org.romanov.lab.entity.CreditAccount;
-import org.romanov.lab.entity.PaymentAccount;
 import org.romanov.lab.entity.User;
 import org.romanov.lab.service.UserService;
+import org.romanov.lab.utils.EntityMaps;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -17,69 +15,61 @@ import java.util.Random;
 public class UserServiceImpl implements UserService {
     private static final Random RANDOM = new Random();
 
-    /**
-     * Создает нового клиента с заданными параметрами.
-     *
-     * @param id            Идентификатор клиента.
-     * @param lastName      Фамилия клиента.
-     * @param firstName     Имя клиента.
-     * @param patronymic    Отчество клиента.
-     * @param birthDate     Дата рождения клиента.
-     * @param workplace     Место работы клиента.
-     * @param usedBanksIds  Список банков, которыми пользуется клиент.
-     * @return              Созданный объект класса {@link User}.
-     */
     @Override
-    public User create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds) {
-        User user = new User();
-        user.setId(id);
-        user.setLastName(lastName);
-        user.setFirstName(firstName);
-        user.setPatronymic(patronymic);
-        user.setBirthDate(birthDate);
-        user.setWorkplace(workplace);
-        double monthlyIncome = (double) (Math.round((RANDOM.nextDouble() * 10_000) * 100)) / 100;
-        user.setMonthlyIncome(monthlyIncome);
-        for (Bank bank : usedBanksIds) bank.setQuantityClients(bank.getQuantityClients() + 1);
-        user.setUsedBanksIds(usedBanksIds);
-        user.setCreditRating(getCreditRating(monthlyIncome));
+    public void create(long id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> bankList) {
+        if (read(id) == null) {
+            User user = new User();
+            user.setId(id);
+            user.setLastName(lastName);
+            user.setFirstName(firstName);
+            user.setPatronymic(patronymic);
+            user.setBirthDate(birthDate);
+            user.setWorkplace(workplace);
+            double monthlyIncome = (double) (Math.round((RANDOM.nextDouble() * 10_000) * 100)) / 100;
+            user.setMonthlyIncome(monthlyIncome);
+            user.setCreditRating(getCreditRating(monthlyIncome));
+            for (Bank bank : bankList) {
+                user.getUsedBanks().put(bank.getId(), bank);
+                bank.getUserMap().put(id, user);
+            }
+        }
+    }
+
+    @Override
+    public User read(long id) {
+        User user = null;
+        for (Bank bank : EntityMaps.bankMap.values()) {
+            if (bank.getUserMap().containsKey(id)){
+                user = bank.getUserMap().get(id);
+                break;
+            }
+        }
         return user;
     }
 
-    /**
-     * Возвращает информацию о текущем клиенте.
-     *
-     * @param id    Идентификатор клиента.
-     * @return      Объект класса {@link User}, представляющий клиента.
-     */
     @Override
-    public User read(int id) {
-        return null;
+    public void update(long id, User user) {
+        User oldUser = read(id);
+        if (oldUser != null && user != null) {
+            user.setCreditRating(getCreditRating(user.getMonthlyIncome()));
+            if (!user.getUsedBanks().isEmpty()) {
+                for (Bank bank : oldUser.getUsedBanks().values()) bank.getUserMap().remove(id);
+                for (Bank bank : user.getUsedBanks().values()) bank.getUserMap().put(id, user);
+            } else delete(id);
+        }
     }
 
-    /**
-     * Обновляет информацию о клиенте.
-     */
     @Override
-    public void update() {
-
-    }
-
-    /**
-     * Удаляет клиента по указанному идентификатору.
-     *
-     * @param id Идентификатор клиента для удаления.
-     */
-    @Override
-    public void delete(int id) {
-
+    public void delete(long id) {
+        User user = read(id);
+        if (user != null) for (Bank bank : user.getUsedBanks().values()) bank.getUserMap().remove(id);
     }
 
     /**
      * Возвращает кредитный рейтинг клиента в зависимости от его ежемесячного дохода.
      *
-     * @param monthlyIncome Ежемесячный доход клиента.
-     * @return Кредитный рейтинг клиента.
+     * @param monthlyIncome     Ежемесячный доход клиента.
+     * @return                  Кредитный рейтинг клиента.
      */
     private int getCreditRating(double monthlyIncome) {
         int creditRating = 100; // Минимальный рейтинг

@@ -21,10 +21,9 @@ public interface UserService {
      * @param patronymic        Отчество клиента.
      * @param birthDate         Дата рождения клиента.
      * @param workplace         Место работы клиента.
-     * @param usedBanksIds      Список банков, которыми пользуется клиент.
-     * @return                  Созданный объект класса {@link User}.
+     * @param bankList          Банки, которыми пользуется клиент.
      */
-    User create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> usedBanksIds);
+    void create(long id, String lastName, String firstName, String patronymic, LocalDate birthDate, String workplace, List<Bank> bankList);
 
     /**
      * Возвращает информацию о текущем клиенте банка.
@@ -32,17 +31,20 @@ public interface UserService {
      * @param id    Уникальный идентификатор клиента банка.
      * @return      Объект класса {@link User}.
      */
-    User read(int id);
+    User read(long id);
 
     /**
      * Обновляет информацию о существующем клиенте банка.
+     *
+     * @param id    Уникальный идентификатор клиента банка.
+     * @param user  Объект класса {@link User}.
      */
-    void update();
+    void update(long id, User user);
 
     /**
      * Удаляет клиента банка по его уникальному идентификатору.
      *
      * @param id Уникальный идентификатор клиента банка.
      */
-    void delete(int id);
+    void delete(long id);
 }

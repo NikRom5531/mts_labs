@@ -26,9 +26,8 @@ public interface EmployeeService {
      * @param worksInOffice   Работает ли сотрудник в офисе.
      * @param canIssueCredits Возможность выдачи кредитов сотрудником.
      * @param salary          Зарплата сотрудника.
-     * @return                Созданный объект класса {@link Employee}.
      */
-    Employee create(int id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary);
+    void create(long id, String lastName, String firstName, String patronymic, LocalDate birthDate, String position, Bank bank, BankOffice bankOffice, boolean worksInOffice, boolean canIssueCredits, double salary);
 
     /**
      * Возвращает информацию о текущем сотруднике банка.
@@ -36,17 +35,20 @@ public interface EmployeeService {
      * @param id    Уникальный идентификатор сотрудника.
      * @return      Объект класса {@link Employee}.
      */
-    Employee read(int id);
+    Employee read(long id);
 
     /**
      * Обновляет информацию о существующем сотруднике банка.
+     *
+     * @param id        Уникальный идентификатор сотрудника.
+     * @param employee  Объект класса {@link Employee}.
      */
-    void update();
+    void update(long id, Employee employee);
 
     /**
      * Удаляет сотрудника банка по его уникальному идентификатору.
      *
      * @param id Уникальный идентификатор сотрудника.
      */
-    void delete(int id);
+    void delete(long id);
 }

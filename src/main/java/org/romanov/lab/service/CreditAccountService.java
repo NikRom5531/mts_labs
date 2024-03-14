@@ -22,9 +22,8 @@ public interface CreditAccountService {
      * @param interestRate    Процентная ставка кредита.
      * @param issuingEmployee Сотрудник, который выдал кредит.
      * @param paymentAccount  Платежный счет для погашения кредита.
-     * @return                Созданный объект класса {@link CreditAccount}.
      */
-    CreditAccount create(int id, User user, Bank bank, LocalDate startDate, int months, double loanAmount, double interestRate, Employee issuingEmployee, PaymentAccount paymentAccount);
+    void create(long id, User user, Bank bank, LocalDate startDate, int months, double loanAmount, double interestRate, Employee issuingEmployee, PaymentAccount paymentAccount);
 
     /**
      * Возвращает информацию о текущем кредитном счете.
@@ -32,17 +31,20 @@ public interface CreditAccountService {
      * @param id    Уникальный идентификатор кредитного счета.
      * @return      Объект класса {@link CreditAccount}.
      */
-    CreditAccount read(int id);
+    CreditAccount read(long id);
 
     /**
      * Обновляет информацию о существующем кредитном счете.
+     *
+     * @param id                Уникальный идентификатор кредитного счета.
+     * @param creditAccount     Объект класса {@link CreditAccount}.
      */
-    void update();
+    void update(long id, CreditAccount creditAccount);
 
     /**
      * Удаляет кредитный счет по его уникальному идентификатору.
      *
      * @param id Уникальный идентификатор кредитного счета.
      */
-    void delete(int id);
+    void delete(long id);
 }
