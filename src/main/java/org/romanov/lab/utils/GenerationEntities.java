@@ -21,10 +21,10 @@ public class GenerationEntities {
     private static final CreditAccountService creditAccountService = new CreditAccountServiceImpl();
     private static final Random RANDOM = new Random();
 
-    private static final int numBanks = 5;      // кол-во генерируемых банков
-    private static final int numOffices = 3;    // кол-во генерируемых офисов в одном банке
-    private static final int numEmployees = 5;  // кол-во генерируемых сотрудников в одном банке
-    private static final int numUsers = 13;     // кол-во клиентов
+    private static final int NUM_BANKS = 5;      // кол-во генерируемых банков
+    private static final int NUM_OFFICES = 3;    // кол-во генерируемых офисов в одном банке
+    private static final int NUM_EMPLOYEES = 5;  // кол-во генерируемых сотрудников в одном банке
+    private static final int NUM_USERS = 13;     // кол-во клиентов
 
     private static final List<String> bankNames = List.of("Сбер", "Газпром", "ВТБ", "Почта", "Тинькофф");
     private static final List<String> namePositions = List.of("Менеджер", "Старший сотрудник", "Специалист", "Кассир", "Младший сотрудник");
@@ -127,12 +127,12 @@ public class GenerationEntities {
      */
     public static void generation() {
         long idOffice = 0, idEmployee = 0, idUser = 0, idAtm = 0, idCreditAccount = 0, idPaymentAccount = 0;
-        for (int i = 0; i < numBanks; i++) {
+        for (int i = 0; i < NUM_BANKS; i++) {
             long idBank = EntityMaps.getFreeId();
             bankService.create(idBank, bankNames.get(i % bankNames.size()));
-            for (int j = 0; j < numOffices; j++, idOffice++, idAtm++) {
+            for (int j = 0; j < NUM_OFFICES; j++, idOffice++, idAtm++) {
                 bankOfficeService.create(idOffice, "Отделение банка №" + (j + 1), bankService.read(idBank), "г. Белгород, ул. Победы " + (idOffice + 1), true, true, true, true, true, randomDouble(1000, 10000));
-                for (int k = 0; k < numEmployees; k++, idEmployee++)
+                for (int k = 0; k < NUM_EMPLOYEES; k++, idEmployee++)
                     employeeService.create(idEmployee, getLastName(), getFirstName(), getPatronymic(), randomDate(1964, 2004), namePositions.get(k % namePositions.size()), bankService.read(idBank), bankOfficeService.read(idOffice), true, true, randomDouble(20000, 50000));
                 atmService.create(idAtm, "Банкомат №" + (j + 1), 1, bankOfficeService.read(idOffice), nameAtmLocation.get(j % nameAtmLocation.size()), employeeService.read(idEmployee - 3), true, true, randomDouble(100, 1000));
             }
@@ -142,7 +142,7 @@ public class GenerationEntities {
         for (Bank bank : banks.values()) bankIds.add(bank.getId());
 
         int usedBankIds = 0;
-        for (int i = 0; i < numUsers; i++, idUser++) {
+        for (int i = 0; i < NUM_USERS; i++, idUser++) {
             if (usedBankIds >= bankIds.size()) usedBankIds = 0;
             Bank bank1 = banks.get(bankIds.get(usedBankIds++));
             if (usedBankIds >= bankIds.size()) usedBankIds = 0;
